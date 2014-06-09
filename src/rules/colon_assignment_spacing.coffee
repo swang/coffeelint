@@ -48,7 +48,8 @@ module.exports = class ColonAssignmentSpacing
         checkSpacing = (direction) ->
             spacing = getSpaceFromToken direction
             # when spacing is negative, the neighboring token is a newline
-            isSpaced = if spacing < 0 then true else spacing is parseInt spacingAllowances[direction]
+            allowedSpacing = parseInt spacingAllowances[direction]
+            isSpaced = if spacing < 0 then true else spacing is allowedSpacing
             [isSpaced, spacing]
 
         [isLeftSpaced, leftSpacing] = checkSpacing 'left'

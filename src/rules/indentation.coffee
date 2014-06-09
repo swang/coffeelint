@@ -50,13 +50,16 @@ module.exports = class Indentation
 
                 # Traverse up the token list until we see a CALL_START token.
                 # Don't scan above this line
-                while (tokenApi.peek(-callStart) and tokenApi.peek(-callStart)[0] isnt 'CALL_START')
-                    { first_line: lastCheck } = tokenApi.peek(-callStart)[2]
+                peekCall = tokenApi.peek(-callStart)
+                while (peekCall and peekCall[0] isnt 'CALL_START')
+                    { first_line: lastCheck } = peekCall[2]
+                    peekCall = tokenApi.peek(-callStart)
                     callStart += 1
 
                 # Keep going back until we are not at a comment or a blank line
                 # and set a new "previousLine"
-                while (lineNumber - prevNum > lastCheck) and not /^\s*\./.test(lines[lineNumber - prevNum])
+                while (lineNumber - prevNum > lastCheck) and
+                        not /^\s*\./.test(lines[lineNumber - prevNum])
                     prevNum += 1
 
                 checkNum = lineNumber - prevNum
@@ -75,7 +78,10 @@ module.exports = class Indentation
                         # assume the current line could be lined by default
                         # indent spacing, and set numIndents to current
                         # number of spaces
-                        if prevSpaces % expected isnt 0 and currentSpaces % expected isnt 0
+                        prevIncorrect = prevSpaces % expected isnt 0
+                        currentIncorrect = currentSpaces % expected isnt 0
+
+                        if prevIncorrect and currentIncorrect
                             numIndents = currentSpaces
 
                         if numIndents % expected isnt 0

@@ -1,4 +1,3 @@
-
 module.exports = class NoImplicitBraces
 
     rule:
@@ -40,13 +39,13 @@ module.exports = class NoImplicitBraces
 
 
     isPartOfClass: (tokenApi) ->
-            # Peek back to the last line break. If there is a class
-            # definition, ignore the generated brace.
-            i = -1
-            loop
-                t = tokenApi.peek(i)
-                if not t? or t[0] == 'TERMINATOR'
-                    return true
-                if t[0] == 'CLASS'
-                    return null
-                i -= 1
+        # Peek back to the last line break. If there is a class
+        # definition, ignore the generated brace.
+        i = -1
+        loop
+            t = tokenApi.peek(i)
+            if not t? or t[0] == 'TERMINATOR'
+                return true
+            if t[0] == 'CLASS'
+                return null
+            i -= 1

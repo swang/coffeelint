@@ -1,5 +1,3 @@
-
-
 module.exports = class NoInterpolationInSingleQuotes
 
     rule:
@@ -16,7 +14,7 @@ module.exports = class NoInterpolationInSingleQuotes
             foo = "#{bar}"
             </code>
             </pre>
-            String interpolation in single quoted strings is permitted by 
+            String interpolation in single quoted strings is permitted by
             default.
             '''
 
